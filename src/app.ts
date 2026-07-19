@@ -1,5 +1,7 @@
 import express, { urlencoded } from "express";
 import path from "path";
+import router from "./router";
+import routerAdmin from "./routerAdmin";
 /**  1 - ENTRANSE  **/
 const app = express();
 app.use(express.static(path.join(__dirname, "public"))); // Middelwere
@@ -13,5 +15,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 /**  4 - ROUTERS **/
+app.use("/admin", routerAdmin); // BSSRR uchun
+app.use("/", router); // Middleware Disign Pattern
 
 export default app;
