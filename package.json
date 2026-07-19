@@ -1,0 +1,24 @@
+{
+  "name": "chayhana-market",
+  "version": "1.0.0",
+  "description": "This is chayhana-market project backend",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "start:dev": "nodemon --exec tsx src/server.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MIT",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.23.1",
+    "typescript": "^5.2.2"
+  }
+}
