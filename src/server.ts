@@ -1,1 +1,2 @@
-console.log("BBR!salom");
+import dotenv from "dotenv";
+dotenv.config();

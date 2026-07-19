@@ -12,7 +12,12 @@
   "author": "MIT",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.29.4"
+    "@types/express": "^5.0.6",
+    "app": "^0.1.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "moment": "^2.29.4",
+    "mongoose": "^6.2.9"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
