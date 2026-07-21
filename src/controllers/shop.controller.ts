@@ -6,6 +6,7 @@ const shopController: T = {};
 /**  BSSRRR  */
 shopController.goHome = (req: Request, res: Response) => {
   try {
+    console.log("GoHome");
     res.send("Go Home Page");
   } catch (err) {
     console.log("ERorr goHome", err);
