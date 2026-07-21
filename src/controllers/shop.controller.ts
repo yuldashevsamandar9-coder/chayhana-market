@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
+import { MemberInput } from "../libs/types/member";
+import { MemberType } from "../libs/enums/Member.enum";
 
 const shopController: T = {};
 /**  BSSRRR  */
@@ -34,6 +36,7 @@ shopController.processLogin = (req: Request, res: Response) => {
 };
 /**.        Login Jaroyini Finish   * */
 /**.        Signup  Jaroyini  Start  * */
+const memberService = new MemberService();
 
 shopController.getSignup = (req: Request, res: Response) => {
   try {
@@ -43,11 +46,18 @@ shopController.getSignup = (req: Request, res: Response) => {
   }
 };
 
-shopController.processSignup = (req: Request, res: Response) => {
+shopController.processSignup = async (req: Request, res: Response) => {
   try {
-    res.send("Go processSignup Page");
+    console.log("req.body:", req.body);
+
+    const newMember: MemberInput = req.body;
+    newMember.memberType = MemberType.SHOPDUKON;
+
+    const result = await memberService.processSignup(newMember);
+    res.send(result);
   } catch (err) {
     console.log("Error processSignup Page", err);
+    res.send(err);
   }
 };
 /**.        Signup Jaroyini  Finish  * */
