@@ -19,14 +19,6 @@ shopController.goHome = (req: Request, res: Response) => {
 
 /**.        Login Jaroyini  Start  * */
 
-shopController.getLogin = (req: Request, res: Response) => {
-  try {
-    res.send("Go Login Page");
-  } catch (err) {
-    console.log("Error goLogin Page", err);
-  }
-};
-
 shopController.getSignup = (req: Request, res: Response) => {
   try {
     console.log("Go SignUp Page");
@@ -36,16 +28,11 @@ shopController.getSignup = (req: Request, res: Response) => {
   }
 };
 
-shopController.processLogin = async (req: Request, res: Response) => {
+shopController.getLogin = (req: Request, res: Response) => {
   try {
-    console.log("done");
-    const input: LoginInput = req.body;
-    const result = await memberService.processLogin(input);
-
-    res.send(result);
+    res.send("Go Login Page");
   } catch (err) {
     console.log("Error goLogin Page", err);
-    res.send(err);
   }
 };
 
@@ -57,9 +44,24 @@ shopController.processSignup = async (req: Request, res: Response) => {
     newMember.memberType = MemberType.SHOPDUKON;
 
     const result = await memberService.processSignup(newMember);
+    // TODO: SESIONS Authentication
     res.send(result);
   } catch (err) {
     console.log("Error processSignup Page", err);
+    res.send(err);
+  }
+};
+
+shopController.processLogin = async (req: Request, res: Response) => {
+  try {
+    console.log("done");
+    const input: LoginInput = req.body,
+      result = await memberService.processLogin(input);
+    // TODO: SESIONS Authentication
+
+    res.send(result);
+  } catch (err) {
+    console.log("Error goLogin Page", err);
     res.send(err);
   }
 };
