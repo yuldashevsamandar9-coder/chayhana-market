@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
-import { MemberInput } from "../libs/types/member";
+import { LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/Member.enum";
 
 const shopController: T = {};
-/**  BSSRRR  */
+const memberService = new MemberService();
+/**  BSSR    **/
 shopController.goHome = (req: Request, res: Response) => {
   try {
     console.log("GoHome");
@@ -26,23 +27,25 @@ shopController.getLogin = (req: Request, res: Response) => {
   }
 };
 
-shopController.processLogin = (req: Request, res: Response) => {
-  try {
-    res.send("Go processLogin Page");
-    console.log("done");
-  } catch (err) {
-    console.log("Error goLogin Page", err);
-  }
-};
-/**.        Login Jaroyini Finish   * */
-/**.        Signup  Jaroyini  Start  * */
-const memberService = new MemberService();
-
 shopController.getSignup = (req: Request, res: Response) => {
   try {
+    console.log("Go SignUp Page");
     res.send("Go Signup Page");
   } catch (err) {
     console.log("Error Go Signup Page", err);
+  }
+};
+
+shopController.processLogin = async (req: Request, res: Response) => {
+  try {
+    console.log("done");
+    const input: LoginInput = req.body;
+    const result = await memberService.processLogin(input);
+
+    res.send(result);
+  } catch (err) {
+    console.log("Error goLogin Page", err);
+    res.send(err);
   }
 };
 
@@ -60,6 +63,5 @@ shopController.processSignup = async (req: Request, res: Response) => {
     res.send(err);
   }
 };
-/**.        Signup Jaroyini  Finish  * */
 
 export default shopController;
