@@ -10,7 +10,7 @@ const memberService = new MemberService();
 shopController.goHome = (req: Request, res: Response) => {
   try {
     console.log("GoHome");
-    res.send("Go Home Page");
+    res.render("home");
     // send | json | redirect | end | render => response method turlari
   } catch (err) {
     console.log("ERorr goHome", err);
@@ -22,7 +22,7 @@ shopController.goHome = (req: Request, res: Response) => {
 shopController.getSignup = (req: Request, res: Response) => {
   try {
     console.log("Go SignUp Page");
-    res.send("Go Signup Page");
+    res.render("signup");
   } catch (err) {
     console.log("Error Go Signup Page", err);
   }
@@ -30,7 +30,7 @@ shopController.getSignup = (req: Request, res: Response) => {
 
 shopController.getLogin = (req: Request, res: Response) => {
   try {
-    res.send("Go Login Page");
+    res.render("login");
   } catch (err) {
     console.log("Error goLogin Page", err);
   }
