@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
@@ -7,7 +7,11 @@ import Errors, { Message } from "../libs/Errors";
 
 const shopController: T = {};
 const memberService = new MemberService();
-/**  BSSR    **/
+/*
+╔════════════════════════════════════════════════════════╗
+║                    BSSR                 ║
+╚════════════════════════════════════════════════════════╝
+*/
 shopController.goHome = (req: Request, res: Response) => {
   try {
     console.log("GoHome");
@@ -18,7 +22,11 @@ shopController.goHome = (req: Request, res: Response) => {
   }
 };
 
-/**.        Login Jaroyini  Start  * */
+/*
+╔════════════════════════════════════════════════════════╗
+║                     LOGIN  JARAYONI                   ║
+╚════════════════════════════════════════════════════════╝
+*/
 
 shopController.getSignup = (req: Request, res: Response) => {
   try {
@@ -93,6 +101,22 @@ shopController.logout = async (req: AdminRequest, res: Response) => {
   } catch (err) {
     console.log("Error, logout:", err);
     res.redirect("/admin");
+  }
+};
+
+shopController.verifyShop = (
+  req: AdminRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  if (req.session?.member?.memberType === MemberType.SHOPDUKON) {
+    req.member = req.session.member;
+    next();
+  } else {
+    const message = Message.NOT_AUTHECENTED;
+    res.send(
+      `<script> alert("${message}"); window.location.replace('/admin/login'); </script>`,
+    );
   }
 };
 
