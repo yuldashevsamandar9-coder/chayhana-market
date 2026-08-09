@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
-import { LoginInput, MemberInput } from "../libs/types/member";
+import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/Member.enum";
 
 const shopController: T = {};
@@ -36,30 +36,37 @@ shopController.getLogin = (req: Request, res: Response) => {
   }
 };
 
-shopController.processSignup = async (req: Request, res: Response) => {
+shopController.processSignup = async (req: AdminRequest, res: Response) => {
   try {
-    console.log("req.body:", req.body);
+    console.log("Process Singup");
 
     const newMember: MemberInput = req.body;
     newMember.memberType = MemberType.SHOPDUKON;
 
     const result = await memberService.processSignup(newMember);
     // TODO: SESIONS Authentication
-    res.send(result);
+
+    req.session.member = result;
+    req.session.save(function () {
+      res.send(result);
+    });
   } catch (err) {
     console.log("Error processSignup Page", err);
     res.send(err);
   }
 };
 
-shopController.processLogin = async (req: Request, res: Response) => {
+shopController.processLogin = async (req: AdminRequest, res: Response) => {
   try {
     console.log("done");
     const input: LoginInput = req.body,
       result = await memberService.processLogin(input);
     // TODO: SESIONS Authentication
 
-    res.send(result);
+    req.session.member = result;
+    req.session.save(function () {
+      res.send(result);
+    });
   } catch (err) {
     console.log("Error goLogin Page", err);
     res.send(err);
