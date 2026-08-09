@@ -3,6 +3,7 @@ import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/Member.enum";
+import Errors, { Message } from "../libs/Errors";
 
 const shopController: T = {};
 const memberService = new MemberService();
@@ -25,6 +26,7 @@ shopController.getSignup = (req: Request, res: Response) => {
     res.render("signup");
   } catch (err) {
     console.log("Error Go Signup Page", err);
+    res.redirect("/admin");
   }
 };
 
@@ -33,6 +35,7 @@ shopController.getLogin = (req: Request, res: Response) => {
     res.render("login");
   } catch (err) {
     console.log("Error goLogin Page", err);
+    res.redirect("/admin");
   }
 };
 
@@ -52,7 +55,11 @@ shopController.processSignup = async (req: AdminRequest, res: Response) => {
     });
   } catch (err) {
     console.log("Error processSignup Page", err);
-    res.send(err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      ` <script> alert("${message}"); window.location.replace('admin/signup') </script>`,
+    );
   }
 };
 
@@ -68,8 +75,24 @@ shopController.processLogin = async (req: AdminRequest, res: Response) => {
       res.send(result);
     });
   } catch (err) {
-    console.log("Error goLogin Page", err);
-    res.send(err);
+    console.log("Error, processLogin:", err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      ` <script> alert("${message}"); window.location.replace('admin/login') </script>`,
+    );
+  }
+};
+
+shopController.logout = async (req: AdminRequest, res: Response) => {
+  try {
+    console.log("logout");
+    req.session.destroy(function () {
+      res.redirect("/admin");
+    });
+  } catch (err) {
+    console.log("Error, logout:", err);
+    res.redirect("/admin");
   }
 };
 

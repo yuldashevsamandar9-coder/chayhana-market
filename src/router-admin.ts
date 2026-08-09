@@ -13,6 +13,7 @@ routerAdmin
 routerAdmin
   .get("/signup", shopController.getSignup)
   .post("/signup", shopController.processSignup);
+routerAdmin.get("/logout", shopController.logout);
 
 /**. Product uchun * */
 /**. User uchun * */
