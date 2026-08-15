@@ -55,6 +55,7 @@ class MemberService {
     const exist = await this.memberModel
       .findOne({ memberType: MemberType.SHOPDUKON })
       .exec();
+
     console.log("exist:", exist);
     if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
 
@@ -66,6 +67,7 @@ class MemberService {
       result.memberPassword = "";
       return result;
     } catch (err) {
+      console.log(err);
       throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
     }
   }

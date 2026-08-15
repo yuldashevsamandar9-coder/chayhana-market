@@ -19,6 +19,7 @@ shopController.goHome = (req: Request, res: Response) => {
     // send | json | redirect | end | render => response method turlari
   } catch (err) {
     console.log("ERorr goHome", err);
+    res.redirect("/admin");
   }
 };
 
@@ -59,14 +60,14 @@ shopController.processSignup = async (req: AdminRequest, res: Response) => {
 
     req.session.member = result;
     req.session.save(function () {
-      res.send(result);
+      res.redirect("/admin/product/all");
     });
   } catch (err) {
     console.log("Error processSignup Page", err);
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      ` <script> alert("${message}"); window.location.replace('admin/signup') </script>`,
+      ` <script> alert("${message}"); window.location.replace('/admin/signup') </script>`,
     );
   }
 };
@@ -80,14 +81,14 @@ shopController.processLogin = async (req: AdminRequest, res: Response) => {
 
     req.session.member = result;
     req.session.save(function () {
-      res.send(result);
+      res.redirect("/admin/product/all");
     });
   } catch (err) {
     console.log("Error, processLogin:", err);
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      ` <script> alert("${message}"); window.location.replace('admin/login') </script>`,
+      ` <script> alert("${message}"); window.location.replace('/admin/login') </script>`,
     );
   }
 };
