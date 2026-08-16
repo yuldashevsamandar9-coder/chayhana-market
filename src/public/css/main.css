@@ -5,3 +5,10 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.nav-link,
+.navbar a {
+  color: #ffffff !important; /* Matn rangini oq qilish */
+  font-weight: bold; /* Matnni qalinroq qilish */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Matn orqasiga qora soya */
+}

@@ -1,14 +1,26 @@
 console.log("Products frontend javascript file");
-
 $(function () {
-  $(".product-collection").on("change", () => {
-    const selectedValue = $(".product-collection").val();
-    if (selectedValue === "DRINK") {
+  $(".product-collection").on("change", function () {
+    const selectedValue = $(this).val();
+
+    if (selectedValue === "DRINKS") {
+      // DRINKS tanlanganda: Drink Volume ko'rsatiladi
       $("#product-collection").hide();
       $("#product-volume").show();
     } else {
+      // MEAT, GROCERIES va OTHER uchun:
+      // Drink Volume yashirilib, asosiy volume bloki ko'rsatiladi
       $("#product-volume").hide();
       $("#product-collection").show();
+
+      // Label (Sarlavha) matnini tanlangan turga qarab o'zgartiramiz:
+      if (selectedValue === "GROCERIES") {
+        $("#product-collection label").text("Groceries Volume");
+      } else if (selectedValue === "OTHER") {
+        $("#product-collection label").text("Category Volume");
+      } else {
+        $("#product-collection label").text("Meat Volume");
+      }
     }
   });
 

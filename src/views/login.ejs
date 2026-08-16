@@ -1,45 +1,106 @@
 <%- include('includes/header') %>
 
+<!-- Ikonkalar uchun FontAwesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 <link rel="stylesheet" type="text/css" href="/css/login.css" />
 
 <body>
-  <form class="login-container" action="/admin/login" METHOD="POST">
-    <div class="login-frame">
-      <div class="login-top">
-        <span>Enter</span>
-        <div>Go back <a href="/admin" style="color: #6440fb">Home</a></div>
-        <p>
-          Not registered yet?
-          <a href="/admin/signup" style="color: #6440fb">Signup</a>
-        </p>
-      </div>
-      <div class="login-input-frame">
-        <div class="login-input-container">
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Sarlavha qismi -->
+      <h2 class="title">XUSH KELIBSIZ 👋</h2>
+      <p class="subtitle">
+        Go back <a href="/admin">Home</a> | Sign in to continue
+      </p>
+
+      <form
+        class="login-form"
+        action="/admin/login"
+        METHOD="POST"
+        autocomplete="off"
+      >
+        <!-- Username input -->
+        <div class="input-group">
           <label>CHayhana-market *</label>
-          <input
-            type="text"
-            name="memberNick"
-            class="member-nick"
-            placeholder="Username"
-            value=""
-            required
-          />
+          <div class="input-wrapper">
+            <i class="fa-regular fa-user icon"></i>
+            <input
+              type="text"
+              name="memberNick"
+              class="member-nick"
+              placeholder="Enter your username"
+              autocomplete="new-password"
+              required
+            />
+          </div>
         </div>
-        <div class="login-input-container">
+
+        <!-- Password input -->
+        <div class="input-group">
           <label>Password *</label>
-          <input
-            type="password"
-            name="memberPassword"
-            class="member-password"
-            placeholder="Password"
-            value=""
-            required
-          />
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock icon"></i>
+            <input
+              type="password"
+              name="memberPassword"
+              id="memberPassword"
+              class="member-password"
+              placeholder="Enter your password"
+              autocomplete="new-password"
+              required
+            />
+            <i
+              class="fa-regular fa-eye toggle-password"
+              id="togglePassword"
+              style="cursor: pointer"
+            ></i>
+          </div>
         </div>
+
+        <div class="forgot-pass">
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <!-- Submit Tugmasi -->
+        <button type="submit" class="btn-login" name="login">Login</button>
+      </form>
+
+      <!-- Ajratuvchi chiziq -->
+      <div class="divider">
+        <span>Or continue with</span>
       </div>
-      <button class="login-btn btn" name="login" type="submit">Login</button>
+
+      <!-- Social Media tugmalari -->
+      <div class="social-login">
+        <a
+          href="https://www.instagram.com/chayhanamart"
+          class="social-btn google"
+        >
+          <i class="fa-brands fa-instagram" style="color: #1877f2"></i>
+        </a>
+        <a
+          href="https://web.telegram.org/k/#@chayhanamarket"
+          class="social-btn telegram"
+        >
+          <i class="fa-brands fa-telegram" style="color: #1877f2"></i>
+        </a>
+        <a
+          href="https://github.com/yuldashevsamandar9-coder"
+          class="social-btn github"
+        >
+          <i class="fa-brands fa-github" style="color: #000"></i>
+        </a>
+      </div>
+
+      <!-- Ro'yxatdan o'tish linki -->
+      <p class="signup-text">
+        Don't have an account? <a href="/admin/signup">Sign up</a>
+      </p>
     </div>
-  </form>
+  </div>
 </body>
 
 <%- include('includes/footer') %>
